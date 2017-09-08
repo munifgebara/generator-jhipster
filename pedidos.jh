@@ -1,0 +1,37 @@
+entity Categoria {
+	nome String
+}
+
+entity Produto {
+   nome String
+   quantidade Integer
+}
+
+entity Cliente{
+   nome String
+}
+
+entity Pedido{
+   codigo String
+}
+
+entity ItemPedido{
+   quantidade Integer
+}
+
+relationship ManyToOne{
+   Produto{categoria(nome)} to Categoria,
+   Pedido{cliente(nome)} to Cliente,
+   ItemPedido{produto(nome)} to Produto
+}
+
+relationship OneToMany{
+   
+   Pedido{itens} to ItemPedido{pedido}
+   
+}
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl

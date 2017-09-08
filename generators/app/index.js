@@ -240,7 +240,7 @@ module.exports = JhipsterGenerator.extend({
         composeClient() {
             if (this.skipClient) return;
 
-            this.composeWith(require.resolve('../client'), {
+            this.composeWith(require.resolve('../clientNG'), {
                 'skip-install': this.options['skip-install'],
                 configOptions: this.configOptions,
                 force: this.options.force,
