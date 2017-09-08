@@ -1,9 +1,20 @@
 entity Region {
-	regionName String
+	regionName String,
+	name2 String,
+	name3 String,
+	description String
 }
 
 entity Country {
-	countryName String
+	countryName String,
+	name2 String,
+	name3 String,
+	name4 String,
+	name5 String,
+	name6 String,
+	name6a String,
+	aname6a String,
+	description String
 }
 
 // an ignored comment
@@ -12,11 +23,15 @@ entity Location {
 	streetAddress String,
 	postalCode String,
 	city String,
-	stateProvince String
+	stateProvince String,
+	name2 String,
+	description String
 }
 
 entity Department {
-	departmentName String required
+	departmentName String required,
+	name2 String,
+	description String
 }
 
 /**
@@ -25,6 +40,7 @@ entity Department {
  */
 entity Task {
 	title String,
+	name2 String,
 	description String
 }
 
@@ -37,6 +53,7 @@ entity Employee {
 	*/
 	firstName String,
 	lastName String,
+	name2 String,
 	email String,
 	phoneNumber String,
 	hireDate ZonedDateTime,

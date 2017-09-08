@@ -38,6 +38,7 @@ util.inherits(EntityGenerator, BaseGenerator);
 module.exports = EntityGenerator.extend({
     constructor: function (...args) { // eslint-disable-line object-shorthand
         generator.apply(this, args);
+        this.log(chalk.bold.green('Vicente'));
 
         // This makes `name` a required argument.
         this.argument('name', {

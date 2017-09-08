@@ -168,6 +168,7 @@ export class <%= entityAngularName %>DialogComponent implements OnInit {
     const entitiesSeen = [];
     for (idx in relationships) {
         const otherEntityNameCapitalized = relationships[idx].otherEntityNameCapitalized;
+        console.log(relationships[idx]);
         if(relationships[idx].relationshipType !== 'one-to-many' && entitiesSeen.indexOf(otherEntityNameCapitalized) === -1) {
     _%>
 

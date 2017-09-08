@@ -54,7 +54,7 @@ _%>
             this.<%= entityInstance %>Service.search({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: ResponseWrapper) => this.<%= entityInstancePlural %> = res.json,
+                    (res: ResponseWrapper) => this.<%= entityInstancePlural %> = res.json.values,
                     (res: ResponseWrapper) => this.onError(res.json)
                 );
             return;
@@ -62,7 +62,7 @@ _%>
        <%_ } _%>
         this.<%= entityInstance %>Service.query().subscribe(
             (res: ResponseWrapper) => {
-                this.<%= entityInstancePlural %> = res.json;
+                this.<%= entityInstancePlural %> = res.json.values;
                 <%_ if (searchEngine === 'elasticsearch') { _%>
                 this.currentSearch = '';
                 <%_ } _%>

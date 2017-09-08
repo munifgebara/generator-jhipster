@@ -516,12 +516,12 @@ module.exports = class extends Generator {
             .query({filter: '${relationship.otherEntityRelationshipName.toLowerCase()}-is-null'})
             .subscribe((res: ResponseWrapper) => {
                 if (${relationshipFieldNameIdCheck}) {
-                    this.${variableName} = res.json;
+                    this.${variableName} = res.json.values;
                 } else {
                     this.${relationship.otherEntityName}Service
                         .find(${relationshipFieldName}${dto === 'no' ? '.id' : 'Id'})
                         .subscribe((subRes: ${relationship.otherEntityAngularName}) => {
-                            this.${variableName} = [subRes].concat(res.json);
+                            this.${variableName} = [subRes].concat(res.json.values);
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));
                 }
             }, (res: ResponseWrapper) => this.onError(res.json));`;
@@ -532,7 +532,7 @@ module.exports = class extends Generator {
                 }
                 query =
         `this.${relationship.otherEntityName}Service.query()
-            .subscribe((res: ResponseWrapper) => { this.${variableName} = res.json; }, (res: ResponseWrapper) => this.onError(res.json));`;
+            .subscribe((res: ResponseWrapper) => { this.${variableName} = res.json.values; }, (res: ResponseWrapper) => this.onError(res.json));`;
             }
             if (variableName && !this.contains(queries, query)) {
                 queries.push(query);

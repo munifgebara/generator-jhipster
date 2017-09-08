@@ -193,6 +193,7 @@ _%>
         const relationshipFieldName = relationships[idx].relationshipFieldName;
         const relationshipFieldNamePlural = relationships[idx].relationshipFieldNamePlural;
         const otherEntityField = relationships[idx].otherEntityField;
+        const otherEntityFieldFirst = relationships[idx];
         const otherEntityFieldCapitalized = relationships[idx].otherEntityFieldCapitalized;
         const relationshipRequired = relationships[idx].relationshipRequired;
         const translationKey = keyPrefix + relationshipName; _%>
@@ -209,13 +210,13 @@ _%>
                 <option [ngValue]="<%=otherEntityName %>Option.id === <%= entityInstance %>.<%=relationshipFieldName %>?.id ? <%= entityInstance %>.<%=relationshipFieldName %> : <%=otherEntityName %>Option" *ngFor="let <%=otherEntityName %>Option of <%=otherEntityNamePlural.toLowerCase() %>; trackBy: track<%=otherEntityNameCapitalized %>ById">{{<%=otherEntityName %>Option.<%=otherEntityField %>}}</option>
             </select>
             <%_ } else { _%>
-            <select class="form-control" id="field_<%= relationshipName %>" name="<%= relationshipName %>" [(ngModel)]="<%= entityInstance %>.<%=relationshipFieldName %>Id" <% if (relationshipRequired) { %> required<% } %>>
+            <select class="form-control" id="field_<%= relationshipName %>" name="<%= relationshipName %>" [(ngModel)]="<%= entityInstance %>.<%=relationshipFieldName %>" <% if (relationshipRequired) { %> required<% } %>>
                 <%_ if (!relationshipRequired) { _%>
                 <option [ngValue]="null"></option>
                 <%_ } else { _%>
                 <option *ngIf="!editForm.value.<%= relationshipName %>" [ngValue]="null" selected></option>
                 <%_ } _%>
-                <option [ngValue]="<%=otherEntityName %>Option.id" *ngFor="let <%=otherEntityName %>Option of <%=otherEntityNamePlural.toLowerCase() %>; trackBy: track<%=otherEntityNameCapitalized %>ById">{{<%=otherEntityName %>Option.<%=otherEntityField %>}}</option>
+                <option [ngValue]="<%=otherEntityName %>Option" *ngFor="let <%=otherEntityName %>Option of <%=otherEntityNamePlural.toLowerCase() %>; trackBy: track<%=otherEntityNameCapitalized %>ById">{{<%=otherEntityName %>Option.<%=otherEntityFieldFirst %>}}</option>
             </select>
             <%_ } _%>
         </div>

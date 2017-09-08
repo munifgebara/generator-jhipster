@@ -38,7 +38,7 @@ const QUESTIONS = constants.SERVER_QUESTIONS;
 module.exports = JhipsterServerGenerator.extend({
     constructor: function (...args) { // eslint-disable-line object-shorthand
         generator.apply(this, args);
-
+        this.log(chalk.green.bold('\nVicente.\n'));
         this.configOptions = this.options.configOptions || {};
 
         // This adds support for a `--[no-]client-hook` flag
