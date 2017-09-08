@@ -46,9 +46,18 @@ const serverFiles = {
             condition: generator => generator.databaseType === 'sql',
             path: SERVER_MAIN_RES_DIR,
             templates: [{
-                file: 'config/liquibase/changelog/_added_entity.xml',
+                file: 'config/liquibase/changelog/_added_entityVicente.xml',
                 options: { interpolate: INTERPOLATE_REGEX },
                 renameTo: generator => `config/liquibase/changelog/${generator.changelogDate}_added_entity_${generator.entityClass}.xml`
+            }]
+        },
+        {
+            condition: generator => generator.databaseType === 'sql',
+            path: SERVER_MAIN_RES_DIR,
+            templates: [{
+                file: 'config/liquibase/changelog/_added_entityAudVicente.xml',
+                options: { interpolate: INTERPOLATE_REGEX },
+                renameTo: generator => `config/liquibase/changelog/${generator.changelogDate}_added_entity_${generator.entityClass}AUD.xml`
             }]
         },
         {
@@ -74,15 +83,15 @@ const serverFiles = {
             path: SERVER_MAIN_SRC_DIR,
             templates: [
                 {
-                    file: 'package/domain/_Entity.java',
+                    file: 'package/domain/_EntityVicente.java',
                     renameTo: generator => `${generator.packageFolder}/domain/${generator.entityClass}.java`
                 },
                 {
-                    file: 'package/repository/_EntityRepository.java',
+                    file: 'package/repository/_EntityRepositoryVicente.java',
                     renameTo: generator => `${generator.packageFolder}/repository/${generator.entityClass}Repository.java`
                 },
                 {
-                    file: 'package/web/rest/_EntityResource.java',
+                    file: 'package/web/rest/_EntityResourceVicente.java',
                     renameTo: generator => `${generator.packageFolder}/web/rest/${generator.entityClass}Resource.java`
                 }
             ]
@@ -114,13 +123,14 @@ const serverFiles = {
             path: SERVER_MAIN_SRC_DIR,
             templates: [
                 {
-                    file: 'package/service/_EntityService.java',
+                    file: 'package/service/_EntityServiceVicente.java',
                     renameTo: generator => `${generator.packageFolder}/service/${generator.entityClass}Service.java`
-                },
-                {
-                    file: 'package/service/impl/_EntityServiceImpl.java',
-                    renameTo: generator => `${generator.packageFolder}/service/impl/${generator.entityClass}ServiceImpl.java`
                 }
+                // ,
+                // {
+                //     file: 'package/service/impl/_EntityServiceImpl.java',
+                //     renameTo: generator => `${generator.packageFolder}/service/impl/${generator.entityClass}ServiceImpl.java`
+                // }
             ]
         },
         {
@@ -136,7 +146,7 @@ const serverFiles = {
             path: SERVER_MAIN_SRC_DIR,
             templates: [
                 {
-                    file: 'package/service/dto/_EntityDTO.java',
+                    file: 'package/service/dto/_EntityDTOVicente.java',
                     renameTo: generator => `${generator.packageFolder}/service/dto/${generator.entityClass}DTO.java`
                 },
                 {
@@ -144,7 +154,7 @@ const serverFiles = {
                     renameTo: generator => `${generator.packageFolder}/service/mapper/EntityMapper.java`
                 },
                 {
-                    file: 'package/service/mapper/_EntityMapper.java',
+                    file: 'package/service/mapper/_EntityMapperVicente.java',
                     renameTo: generator => `${generator.packageFolder}/service/mapper/${generator.entityClass}Mapper.java`
                 }
             ]
@@ -154,7 +164,7 @@ const serverFiles = {
         {
             path: SERVER_TEST_SRC_DIR,
             templates: [{
-                file: 'package/web/rest/_EntityResourceIntTest.java',
+                file: 'package/web/rest/_EntityResourceIntTestVicente.java',
                 options: { context: { randexp, _, chalkRed: chalk.red, fs, SERVER_TEST_SRC_DIR } },
                 renameTo: generator => `${generator.packageFolder}/web/rest/${generator.entityClass}ResourceIntTest.java`
             }]
@@ -374,6 +384,7 @@ function writeFiles() {
                     this.addConstraintsChangelogToLiquibase(`${this.changelogDate}_added_entity_constraints_${this.entityClass}`);
                 }
                 this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_${this.entityClass}`);
+//                this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_${this.entityClass}AUD`);
 
                 if (this.hibernateCache === 'ehcache' || this.hibernateCache === 'infinispan') {
                     this.addEntityToCache(this.entityClass, this.relationships, this.packageName, this.packageFolder, this.hibernateCache);

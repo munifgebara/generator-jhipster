@@ -18,6 +18,9 @@
 -%>
 package <%=packageName%>.web.rest;
 
+import br.com.munif.framework.vicente.api.BaseAPI;
+import br.com.munif.framework.vicente.application.BaseService;
+
 import com.codahale.metrics.annotation.Timed;
 <%_ if (dto !== 'mapstruct' || service === 'no') { _%>
 import <%=packageName%>.domain.<%= entityClass %>;
@@ -70,7 +73,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;<% } %>
  * REST controller for managing <%= entityClass %>.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/<%= entityApiUrl %>")
 public class <%= entityClass %>Resource {
 
     private final Logger log = LoggerFactory.getLogger(<%= entityClass %>Resource.class);

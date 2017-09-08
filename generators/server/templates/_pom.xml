@@ -52,6 +52,7 @@
     <properties>
         <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
         <assertj.version>3.6.2</assertj.version>
+        <vicente.version>0.2-SNAPSHOT</vicente.version>
         <awaitility.version>2.0.0</awaitility.version>
         <%_ if (applicationType === 'gateway') { _%>
         <bucket4j.version>2.0.1</bucket4j.version>
@@ -206,6 +207,28 @@
 
     <%_ if (serviceDiscoveryType || applicationType === 'gateway' || applicationType === 'microservice' || applicationType === 'uaa' || messageBroker === 'kafka' || hibernateCache === 'infinispan') { _%>
     <dependencyManagement>
+        <dependency>
+            <groupId>br.com.munif.framework.vicente</groupId>
+            <artifactId>core</artifactId>
+            <version>${vicente.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.munif.framework.vicente</groupId>
+            <artifactId>domain</artifactId>
+            <version>${vicente.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.munif.framework.vicente</groupId>
+            <artifactId>application</artifactId>
+            <version>${vicente.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.munif.framework.vicente</groupId>
+            <artifactId>api</artifactId>
+            <version>${vicente.version}</version>
+        </dependency>
+
+    
         <dependencies>
             <%_ if (messageBroker === 'kafka') { _%>
             <dependency>
@@ -239,6 +262,26 @@
 <%_ } _%>
 
     <dependencies>
+        <dependency>
+            <groupId>br.com.munif.framework.vicente</groupId>
+            <artifactId>core</artifactId>
+            <version>${vicente.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.munif.framework.vicente</groupId>
+            <artifactId>domain</artifactId>
+            <version>${vicente.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.munif.framework.vicente</groupId>
+            <artifactId>application</artifactId>
+            <version>${vicente.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.munif.framework.vicente</groupId>
+            <artifactId>api</artifactId>
+            <version>${vicente.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.github.jhipster</groupId>
             <artifactId>jhipster</artifactId>

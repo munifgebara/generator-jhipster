@@ -56,6 +56,20 @@
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
     <changeSet id="00000000000001" author="jhipster">
+
+
+        <createTable tableName="VicRevisionEntity">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ip" type="VARCHAR(255)"/>
+            <column name="momento" type="datetime(6)"/>
+            <column name="user" type="VARCHAR(255)"/>
+        </createTable>
+
+
+
+
 <%_ if (!skipUserManagement) { _%>
         <createTable tableName="jhi_user">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
@@ -337,4 +351,6 @@
                   tableName="oauth_client_details"/>
     </changeSet>
     <%_ } _%>
+
+
 </databaseChangeLog>
