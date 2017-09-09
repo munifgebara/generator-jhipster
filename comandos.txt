@@ -1,1 +1,15 @@
 jhipster --skip-install
+
+
+
+ git reset --hard 
+ git clean -fd
+
+<%= entityAngularName %>
+
+
+import { <%= entityAngularName %> } from './<%= entityFileName %>.model';
+
+
+<%= entityUrl %>
+

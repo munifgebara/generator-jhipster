@@ -33,7 +33,7 @@ const SERVER_TEST_SRC_DIR = constants.SERVER_TEST_SRC_DIR;
 
 const SERVER_TEMPLATES_DIR = 'server';
 const CLIENT_NG1_TEMPLATES_DIR = 'client/angularjs';
-const CLIENT_NG2_TEMPLATES_DIR = 'client/angular';
+const CLIENT_NG2_TEMPLATES_DIR = 'client/duda';
 const CLIENT_I18N_TEMPLATES_DIR = 'client';
 
 /**
@@ -181,89 +181,6 @@ const serverFiles = {
     ]
 };
 
-const angularjsFiles = {
-    client: [
-        {
-            path: ANGULAR_DIR,
-            templates: [
-                {
-                    file: 'entities/_entity-management.html',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityPluralFileName}.html`
-                },
-                {
-                    file: 'entities/_entity-management-detail.html',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-detail.html`
-                },
-                {
-                    file: 'entities/_entity-management-dialog.html',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-dialog.html`
-                },
-                {
-                    file: 'entities/_entity-management-delete-dialog.html',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-delete-dialog.html`
-                },
-                {
-                    file: 'entities/_entity-management.state.js',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.state.js`
-                },
-                {
-                    file: 'entities/_entity-management.controller.js',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.controller.js`
-                },
-                {
-                    file: 'entities/_entity-management-dialog.controller.js',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-dialog.controller.js`
-                },
-                {
-                    file: 'entities/_entity-management-delete-dialog.controller.js',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-delete-dialog.controller.js`
-                },
-                {
-                    file: 'entities/_entity-management-detail.controller.js',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-detail.controller.js`
-                },
-                {
-                    file: 'entities/_entity.service.js',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityServiceFileName}.service.js`
-                }
-
-            ]
-        },
-        {
-            condition: generator => generator.searchEngine === 'elasticsearch',
-            path: ANGULAR_DIR,
-            templates: [{
-                file: 'entities/_entity-search.service.js',
-                renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityServiceFileName}.search.service.js`
-            }]
-        }
-    ],
-    test: [
-        {
-            path: CLIENT_TEST_SRC_DIR,
-            templates: [{
-                file: 'spec/app/entities/_entity-management-detail.controller.spec.js',
-                renameTo: generator => `spec/app/entities/${generator.entityFolderName}/${generator.entityFileName}-detail.controller.spec.js`
-            }]
-        },
-        {
-            condition: generator => generator.protractorTests,
-            path: CLIENT_TEST_SRC_DIR,
-            templates: [{
-                file: 'e2e/entities/_entity.js',
-                renameTo: generator => `e2e/entities/${generator.entityFileName}.js`
-            }]
-        }
-    ]
-};
 
 const angularFiles = {
     client: [
@@ -271,88 +188,50 @@ const angularFiles = {
             path: ANGULAR_DIR,
             templates: [
                 {
-                    file: 'entities/_entity-management.component.html',
+                    file: 'module/routing.module.ts',
+                    renameTo: generator => `${generator.entityFolderName}/routing.module.ts`
+                },
+                {
+                    file: 'module/module.ts',
+                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.module.ts`
+                },
+                {
+                    file: 'module/service.ts',
+                    renameTo: generator => `${generator.entityFolderName}/service.ts`
+                },
+                {
+                    file: 'module/lista/lista.component.ts',
+                    renameTo: generator => `${generator.entityFolderName}/lista/lista.component.ts`
+                },
+                {
+                    file: 'module/crud/crud.component.ts',
+                    renameTo: generator => `${generator.entityFolderName}/crud/crud.component.ts`
+                },
+                {
+                    file: 'module/crud/crud.component.css',
+                    renameTo: generator => `${generator.entityFolderName}/crud/crud.component.css`
+                },
+                {
+                    file: 'module/crud/crud.component.html',
                     method: 'processHtml',
                     template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.component.html`
+                    renameTo: generator => `${generator.entityFolderName}/crud/crud.component.html`
                 },
                 {
-                    file: 'entities/_entity-management-detail.component.html',
+                    file: 'module/detalhes/detalhes.component.ts',
+                    renameTo: generator => `${generator.entityFolderName}/detalhes/detalhes.component.ts`
+                },
+                {
+                    file: 'module/detalhes/detalhes.component.css',
+                    renameTo: generator => `${generator.entityFolderName}/detalhes/detalhes.component.css`
+                },
+                {
+                    file: 'module/detalhes/detalhes.component.html',
                     method: 'processHtml',
                     template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-detail.component.html`
+                    renameTo: generator => `${generator.entityFolderName}/detalhes/detalhes.component.html`
                 },
-                {
-                    file: 'entities/_entity-management-dialog.component.html',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-dialog.component.html`
-                },
-                {
-                    file: 'entities/_entity-management-delete-dialog.component.html',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-delete-dialog.component.html`
-                },
-                {
-                    file: 'entities/_index.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/index.ts`
-                },
-                {
-                    file: 'entities/_entity-management.module.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.module.ts`
-                },
-                {
-                    file: 'entities/_entity-management.route.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.route.ts`
-                },
-                {
-                    file: 'entities/_entity.model.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.model.ts`
-                },
-                {
-                    file: 'entities/_entity-management.component.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.component.ts`
-                },
-                {
-                    file: 'entities/_entity-management-dialog.component.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-dialog.component.ts`
-                },
-                {
-                    file: 'entities/_entity-management-delete-dialog.component.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-delete-dialog.component.ts`
-                },
-                {
-                    file: 'entities/_entity-management-detail.component.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-detail.component.ts`
-                },
-                {
-                    file: 'entities/_entity.service.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityServiceFileName}.service.ts`
-                },
-                {
-                    file: 'entities/_entity-popup.service.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityServiceFileName}-popup.service.ts`
-                }
-
             ]
-        }
-    ],
-    test: [
-        {
-            path: CLIENT_TEST_SRC_DIR,
-            templates: [{
-                file: 'spec/app/entities/_entity-management-detail.component.spec.ts',
-                renameTo: generator => `spec/app/entities/${generator.entityFolderName}/${generator.entityFileName}-detail.component.spec.ts`
-            }]
-        },
-        {
-            condition: generator => generator.protractorTests,
-            path: CLIENT_TEST_SRC_DIR,
-            templates: [{
-                file: 'e2e/entities/_entity.spec.ts',
-                renameTo: generator => `e2e/entities/${generator.entityFileName}.spec.ts`
-            }]
         }
     ]
 };
@@ -360,7 +239,6 @@ const angularFiles = {
 module.exports = {
     writeFiles,
     serverFiles,
-    angularjsFiles,
     angularFiles
 };
 
@@ -384,7 +262,7 @@ function writeFiles() {
                     this.addConstraintsChangelogToLiquibase(`${this.changelogDate}_added_entity_constraints_${this.entityClass}`);
                 }
                 this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_${this.entityClass}`);
-//                this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_${this.entityClass}AUD`);
+                //                this.addChangelogToLiquibase(`${this.changelogDate}_added_entity_${this.entityClass}AUD`);
 
                 if (this.hibernateCache === 'ehcache' || this.hibernateCache === 'infinispan') {
                     this.addEntityToCache(this.entityClass, this.relationships, this.packageName, this.packageFolder, this.hibernateCache);
@@ -427,29 +305,9 @@ function writeFiles() {
         writeClientFiles() {
             if (this.skipClient) return;
 
-            if (this.clientFramework === 'angular1') {
-                // write client side files for angular 1.x
-                this.writeFilesToDisk(angularjsFiles, this, false, CLIENT_NG1_TEMPLATES_DIR);
-            } else {
-                // write client side files for angular 2.x +
-                this.writeFilesToDisk(angularFiles, this, false, CLIENT_NG2_TEMPLATES_DIR);
-                this.addEntityToModule(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation, this.clientFramework);
+            this.writeFilesToDisk(angularFiles, this, false, CLIENT_NG2_TEMPLATES_DIR);
+            //this.addEntityToModule(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation, this.clientFramework);
 
-                if (this.applicationType === 'gateway' && !_.isUndefined(this.microserviceName)) {
-                    this.addEntityToWebpack(this.microserviceName, this.clientFramework);
-                }
-            }
-
-            this.addEntityToMenu(this.entityStateName, this.enableTranslation, this.clientFramework);
-
-
-            // Copy for each
-            if (this.enableTranslation) {
-                const languages = this.languages || this.getAllInstalledLanguages();
-                languages.forEach((language) => {
-                    this.copyI18n(language, CLIENT_I18N_TEMPLATES_DIR);
-                });
-            }
         }
     };
 }

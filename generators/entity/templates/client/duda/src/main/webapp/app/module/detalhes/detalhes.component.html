@@ -1,0 +1,35 @@
+<p-panel>
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title"><%= entityAngularName %></span>
+            <p-splitButton [style]="{'float':'right'}" label="Salvar" (onClick)="salvar()" [model]="items"></p-splitButton>
+        </div>
+    </p-header>
+    <%_ for (idx in fields) {
+            const fieldName = fields[idx].fieldName;
+            const fieldNameCapitalized = fields[idx].fieldNameCapitalized;
+            const fieldNameHumanized = fields[idx].fieldNameHumanized;
+            const fieldType = fields[idx].fieldType;
+            const fieldTypeBlobContent = fields[idx].fieldTypeBlobContent;
+            let fieldInputType = 'text';
+            let ngModelOption = '';
+            if (['Integer', 'Long', 'Float', 'Double', 'BigDecimal'].includes(fieldType)) {
+                fieldInputType = 'number';
+            } else if (fieldType === 'LocalDate') {
+                fieldInputType = 'date';
+            } else if (['Instant', 'ZonedDateTime'].includes(fieldType)) {
+                fieldInputType = 'datetime-local';
+            } else if (fieldType === 'Boolean') {
+                fieldInputType = 'checkbox';
+            } else if (['byte[]', 'ByteBuffer'].includes(fieldType) && fieldTypeBlobContent !== 'text') {
+                fieldInputType = 'hidden';
+            }
+        _%>
+        <h3><%= fieldNameCapitalized %></h3>
+        <input id="<%= fieldName %>" type="<%= fieldInputType %>" size="30" pInputText [(ngModel)]="selecionado.<%= fieldName %>">
+        <%_ 
+}
+_%>
+
+
+</p-panel>

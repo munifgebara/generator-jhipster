@@ -39,6 +39,20 @@ const files = {
                 '_protractor.conf.js',
                 '_tsconfig.json',
                 '_tslint.json',
+                'src/main/webapp/app/comum/_lista.component.css',
+                'src/main/webapp/app/comum/_lista.component.html',
+                'src/main/webapp/app/comum/_supercrud.component.ts',
+                'src/main/webapp/app/comum/_superdetalhes.component.ts',
+                'src/main/webapp/app/comum/_superlista.component.ts',
+                'src/main/webapp/app/comum/_superservice.service.ts',
+                'src/main/webapp/app/comum/_login.component.css',
+                'src/main/webapp/app/comum/_login.component.html',
+                'src/main/webapp/app/comum/_login.component.ts',
+                'src/main/webapp/app/comum/_dashboard.component.css',
+                'src/main/webapp/app/comum/_dashboard.component.html',
+                'src/main/webapp/app/comum/_dashboard.component.ts',
+                'src/main/webapp/app/comum/_pietra.guard.ts',
+                'src/main/webapp/app/comum/_autorizador.service.ts'
             ]
         }
     ],
