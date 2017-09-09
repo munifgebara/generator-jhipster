@@ -74,6 +74,7 @@ module.exports = class extends PrivateBase {
      * @param {string} clientFramework - The name of the client framework
      */
     addElementToMenu(routerName, glyphiconName, enableTranslation, clientFramework) {
+
         let navbarPath;
         try {
             if (clientFramework === 'angular1') {
@@ -81,26 +82,14 @@ module.exports = class extends PrivateBase {
                 jhipsterUtils.rewriteFile({
                     file: navbarPath,
                     needle: 'jhipster-needle-add-element-to-menu',
-                    splicable: [`<li ui-sref-active="active">
-                                <a ui-sref="${routerName}" ng-click="vm.collapseNavbar()">
-                                    <span class="glyphicon glyphicon-${glyphiconName}"></span>&nbsp;
-                                    <span${enableTranslation ? ` data-translate="global.menu.${routerName}"` : ''}>${_.startCase(routerName)}</span>
-                                </a>
-                            </li>`
-                    ]
+                    splicable: [`<button pButton type="button" label="${_.startCase(routerName)}" icon="fa-folder-open" [routerLink]="['${routerName}']"></button>`]
                 }, this);
             } else {
-                navbarPath = `${CLIENT_MAIN_SRC_DIR}app/layouts/navbar/navbar.component.html`;
+                navbarPath = `${CLIENT_MAIN_SRC_DIR}app/app.component.html`;
                 jhipsterUtils.rewriteFile({
                     file: navbarPath,
                     needle: 'jhipster-needle-add-element-to-menu',
-                    splicable: [`<li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                                <a class="nav-link" routerLink="${routerName}" (click)="collapseNavbar()">
-                                    <i class="fa fa-${glyphiconName}"></i>&nbsp;
-                                    <span${enableTranslation ? ` jhiTranslate="global.menu.${routerName}"` : ''}>${_.startCase(routerName)}</span>
-                                </a>
-                            </li>`
-                    ]
+                   splicable: [`<button pButton type="button" label="${_.startCase(routerName)}" icon="fa-folder-open" [routerLink]="['${routerName}']"></button>`]                
                 }, this);
             }
         } catch (e) {
@@ -179,7 +168,7 @@ module.exports = class extends PrivateBase {
      * @param {boolean} enableTranslation - If translations are enabled or not
      * @param {string} clientFramework - The name of the client framework
      */
-    addEntityToMenu(routerName, enableTranslation, clientFramework) {
+        addEntityToMenu(routerName, enableTranslation, clientFramework) {
         let entityMenuPath;
         try {
             if (clientFramework === 'angular1') {
@@ -196,18 +185,13 @@ module.exports = class extends PrivateBase {
                     ]
                 }, this);
             } else {
-                entityMenuPath = `${CLIENT_MAIN_SRC_DIR}app/layouts/navbar/navbar.component.html`;
+                entityMenuPath = `${CLIENT_MAIN_SRC_DIR}app/app.component.html`;
                 jhipsterUtils.rewriteFile({
                     file: entityMenuPath,
                     needle: 'jhipster-needle-add-entity-to-menu',
                     splicable: [
                         this.stripMargin(
-                            `|<li>
-                             |                        <a class="dropdown-item" routerLink="${routerName}" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                             |                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
-                             |                            <span${enableTranslation ? ` jhiTranslate="global.menu.entities.${_.camelCase(routerName)}"` : ''}>${_.startCase(routerName)}</span>
-                             |                        </a>
-                             |                    </li>`
+                            `|<button pButton type="button" label="${_.startCase(routerName)}" icon="fa-plus"  [routerLink]="['./${routerName}']"></button>`
                         )
                     ]
                 }, this);

@@ -25,7 +25,7 @@ const pluralize = require('pluralize');
 const prompts = require('./prompts');
 const jhiCore = require('jhipster-core');
 const writeFiles = require('./files').writeFiles;
-const BaseGenerator = require('../generator-base');
+const BaseGenerator = require('../generator-baseNG');
 const constants = require('../generator-constants');
 
 /* constants used throughout */
@@ -38,8 +38,7 @@ util.inherits(EntityGenerator, BaseGenerator);
 module.exports = EntityGenerator.extend({
     constructor: function (...args) { // eslint-disable-line object-shorthand
         generator.apply(this, args);
-        this.log(chalk.bold.green('Vicente'));
-
+        this.log(chalk.bold.green('Duda'));
         // This makes `name` a required argument.
         this.argument('name', {
             type: String,

@@ -379,7 +379,7 @@ module.exports = JhipsterClientGenerator.extend({
             } else if (this.clientFramework === 'angular1') {
                 this.spawnCommandSync('gulp', ['install']);
             } else {
-                this.spawnCommandSync(this.clientPackageManager, ['run', 'webpack:build']);
+                this.spawnCommandSync(this.clientPackageManager, ['run', 'build']);
             }
         };
 

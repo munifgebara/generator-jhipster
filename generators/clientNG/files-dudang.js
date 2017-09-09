@@ -29,6 +29,18 @@ const ANGULAR_DIR = constants.ANGULAR_DIR;
  * For any other config an object { file:.., method:.., template:.. } can be used
 */
 const files = {
+       webpack: [
+        {
+         templates: [
+                'webpack/_utils.js',
+                'webpack/_webpack.common.js',
+                'webpack/_webpack.dev.js',
+                'webpack/_webpack.prod.js',
+                'webpack/_webpack.test.js',
+                { file: 'webpack/logo-jhipster.png', method: 'copy' }
+            ]
+        }
+    ],
     common: [
         {
             templates: [
@@ -101,6 +113,19 @@ const files = {
             ]
         }
     ],
+
+    angularShared: [
+        {
+            condition: generator => generator.enableTranslation,
+            path: ANGULAR_DIR,
+            templates: [
+                'shared/language/_find-language-from-key.pipe.ts',
+                'shared/language/_language.constants.ts',
+                'shared/language/_language.helper.ts'
+            ]
+        }
+    ],
+
     clientTestFw: [
         {
             templates: [

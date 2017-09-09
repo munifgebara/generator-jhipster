@@ -14,8 +14,7 @@ import { DashboardComponent } from './comum/dashboard.component';
 import { PietraGuard } from './comum/pietra.guard';
 
 
-
-import { CarroModule} from './carro/carro.module';
+/* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
   declarations: [
@@ -31,7 +30,7 @@ import { CarroModule} from './carro/carro.module';
     BrowserAnimationsModule,
     AccordionModule, GrowlModule, DataListModule, ToolbarModule, ButtonModule, SplitButtonModule, PanelModule,
 
-    CarroModule,
+   /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
 
     AppRoutingModule
   ],
