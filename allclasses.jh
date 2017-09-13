@@ -1,0 +1,236 @@
+entity Role {
+name String
+
+}
+enum WeekDay {
+SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY
+}
+/** extends Especification */
+entity TimeEspecification {
+weekDay WeekDay
+startTime ZonedDateTime
+endTime ZonedDateTime
+
+}
+enum AddRemove {
+ADD,REMOVE
+}
+/** extends Especification */
+entity OperationEspecification {
+type AddRemove
+
+}
+entity InstanceValue {
+key String
+value String
+
+}
+entity Especification {
+name String
+
+}
+/** extends Especification */
+entity IPEspecification {
+ip String
+
+}
+entity Instance {
+name String
+expiration LocalDate
+defaultTokenDuration Long
+activeInstance Boolean
+customInfo String
+
+}
+entity Billing {
+moment LocalDate
+description String
+billed Boolean
+userLogin String
+
+}
+/** extends GumgaSharedModel */
+entity SoftwareApp {
+name String
+url String
+logo ImageBlob
+defaultTokenDuration Long
+root Boolean
+
+}
+entity OperationGroup {
+name String
+
+}
+entity SoftwareValue {
+key String
+value String
+
+}
+entity Operation {
+name String
+description String
+key String
+basicOperation Boolean
+billed Boolean
+thousandValue BigDecimal
+
+}
+entity GumgaToken {
+information String
+timeOfCreation Long
+timeOfExpiration Long
+remoteIp String
+value String
+longo Boolean
+
+}
+entity Organization {
+name String
+mainOrganization Boolean
+hierarchyCode String
+internalCode String
+razaoSocial String
+idCliente Long
+isSoftwareHouse Boolean
+securityManager Boolean
+logo ImageBlob
+maxShortTokens Integer
+
+}
+entity ServiceKey {
+azureCognitiveServiceUrl String
+azureCognitiveServiceKey String
+azureCognitiveServicePrefix String
+
+}
+entity UserGroup {
+name String
+
+}
+entity UserImage {
+metadados String
+faceId String
+faceListName String
+image ImageBlob
+
+}
+entity UserApp {
+name String
+login String
+password String
+status Boolean
+internalCode String
+picture ImageBlob
+hidden Boolean
+
+}
+entity ChangePasswordTicket {
+code String
+used Boolean
+expiration Long
+
+}
+relationship ManyToOne{
+InstanceValue{instance} to Instance  
+}
+
+relationship ManyToMany{
+Instance{softwares} to SoftwareApp  
+}
+
+relationship ManyToOne{
+Billing{gumgaSoftware} to SoftwareApp  
+}
+
+relationship ManyToMany{
+UserApp{organizations} to Organization  
+}
+
+relationship ManyToMany{
+OperationGroup{operations} to Operation  
+}
+
+relationship ManyToMany{
+Role{users} to UserApp  
+}
+
+relationship ManyToOne{
+GumgaToken{user} to UserApp  
+}
+
+relationship ManyToOne{
+ChangePasswordTicket{user} to UserApp  
+}
+
+relationship ManyToOne{
+Organization{mainUser} to UserApp  
+}
+
+relationship OneToMany{
+SoftwareApp{modules} to SoftwareApp  
+}
+
+relationship ManyToOne{
+OperationEspecification{operation} to Operation  
+}
+
+relationship ManyToOne{
+UserImage{user} to UserApp  
+}
+
+relationship ManyToOne{
+Instance{organization} to Organization  
+}
+
+relationship ManyToOne{
+Role{instance} to Instance  
+}
+
+relationship ManyToMany{
+UserGroup{users} to UserApp  
+}
+
+relationship ManyToOne{
+Especification{role} to Role  
+}
+
+relationship ManyToOne{
+SoftwareValue{software} to SoftwareApp  
+}
+
+relationship ManyToOne{
+Billing{gumgaOperation} to Operation  
+}
+
+relationship OneToMany{
+Organization{subOrganizations} to Organization  
+}
+
+relationship ManyToOne{
+Especification{user} to UserApp  
+}
+
+relationship ManyToOne{
+OperationGroup{software} to SoftwareApp  
+}
+
+relationship ManyToOne{
+GumgaToken{organization} to Organization  
+}
+
+relationship ManyToOne{
+Billing{gumgaOrganization} to Organization  
+}
+
+relationship OneToMany{
+SoftwareApp{operations} to Operation  
+}
+
+
+
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl

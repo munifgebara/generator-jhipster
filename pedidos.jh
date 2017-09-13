@@ -7,9 +7,15 @@ entity Produto {
    quantidade Integer
 }
 
-entity Cliente{
+entity Cliente {
    nome String
 }
+
+entity ClienteMax /** extends Pais */ { 
+ 
+   observacao String
+}
+
 
 entity Pedido{
    codigo String

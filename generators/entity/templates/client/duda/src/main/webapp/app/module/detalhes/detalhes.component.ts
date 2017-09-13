@@ -4,12 +4,22 @@ import { Location } from '@angular/common';
 import { <%= entityAngularName %>Service} from '../service';
 import { SuperDetalhes } from '../../comum/superdetalhes.component';
 <%_ for (idx in relationships) { 
+  
   const otherEntityName = relationships[idx].otherEntityName; 
   const otherEntityNameCapitalized = relationships[idx].otherEntityNameCapitalized; 
       const relationshipType = relationships[idx].relationshipType;
+      const caminho=relationships[idx].otherEntityModulePath;
+
+if (entityAngularName===otherEntityNameCapitalized){
+  continue;
+
+}
+
     if (relationshipType === 'many-to-one' || relationshipType === 'one-to-one'){
 
-  _%>import { <%=otherEntityNameCapitalized%>Service } from "../../<%= otherEntityName %>/service";
+  _%>import { <%=otherEntityNameCapitalized%>Service } from "../../<%= caminho %>/service";
+
+
 <%_ }} _%>  
 
 @Component({

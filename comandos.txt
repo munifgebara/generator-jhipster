@@ -13,3 +13,175 @@ import { <%= entityAngularName %> } from './<%= entityFileName %>.model';
 
 <%= entityUrl %>
 
+
+public class ExceptionTranslator implements ProblemHandling,DataIntegrityViolationExceptionTrait {
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.myapp.web.rest.errors;
+
+import com.google.gag.annotation.remark.Facepalm;
+import com.google.gag.annotation.remark.WTF;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
+import org.zalando.problem.spring.web.advice.AdviceTrait;
+import javax.annotation.Nullable;
+import org.springframework.dao.DataIntegrityViolationException;
+
+/**
+ *
+ * @author munif
+ */
+public interface DataIntegrityViolationExceptionTrait extends AdviceTrait {
+
+    @ExceptionHandler
+    default ResponseEntity<Problem> handleRequestMethodNotSupportedException(final DataIntegrityViolationException exception, final NativeWebRequest request) {
+        final HttpHeaders headers = new HttpHeaders();
+        return create(Status.PRECONDITION_FAILED, exception, request, headers);
+    }
+
+}
+
+
+package com.mycompany.myapp.web.rest;
+
+import com.mycompany.myapp.OriginalApp;
+import com.mycompany.myapp.domain.Categoria;
+import com.mycompany.myapp.domain.Produto;
+import com.mycompany.myapp.repository.CategoriaRepository;
+import com.mycompany.myapp.repository.ProdutoRepository;
+import com.mycompany.myapp.service.CategoriaService;
+import com.mycompany.myapp.service.ProdutoService;
+import com.mycompany.myapp.service.mapper.CategoriaMapper;
+import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
+import java.util.ArrayList;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
+import org.springframework.dao.DataIntegrityViolationException;
+
+/**
+ * Test class for the CategoriaResource REST controller.
+ *
+ * @see CategoriaResource
+ */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = OriginalApp.class)
+public class ReferenceResourceIntTest {
+
+    private static final String DEFAULT_NOME = "AAAAAAAAAA";
+    private static final String UPDATED_NOME = "BBBBBBBBBB";
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private CategoriaMapper categoriaMapper;
+
+    @Autowired
+    private CategoriaService categoriaService;
+
+    @Autowired
+    private ProdutoService produtoService;
+
+    @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
+    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
+
+    @Autowired
+    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+
+    @Autowired
+    private EntityManager em;
+
+    private MockMvc restCategoriaMockMvc;
+
+    private MockMvc restProdutoMockMvc;
+
+    private Categoria cat;
+    private Produto p1;
+
+    @Before
+    public void initTest() {
+        cat = new Categoria().nome(DEFAULT_NOME);
+        categoriaRepository.saveAndFlush(cat);
+        p1 = new Produto().categoria(cat).nome(DEFAULT_NOME).quantidade(11);
+        produtoRepository.saveAndFlush(p1);
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final CategoriaResource categoriaResource = new CategoriaResource(categoriaService);
+        this.restCategoriaMockMvc = MockMvcBuilders.standaloneSetup(categoriaResource)
+                .setCustomArgumentResolvers(pageableArgumentResolver)
+                .setControllerAdvice(exceptionTranslator)
+                .setMessageConverters(jacksonMessageConverter).build();
+
+        final ProdutoResource produtoResource = new ProdutoResource(produtoService);
+        this.restProdutoMockMvc = MockMvcBuilders.standaloneSetup(produtoResource)
+                .setCustomArgumentResolvers(pageableArgumentResolver)
+                .setControllerAdvice(exceptionTranslator)
+                .setMessageConverters(jacksonMessageConverter).build();
+    }
+
+    private List<Categoria> findAll() {
+        Iterable<Categoria> findAll = categoriaRepository.findAll();
+
+        List<Categoria> result = new ArrayList<>();
+        for (Categoria r : findAll) {
+            result.add(r);
+        }
+
+        return result;
+    }
+
+     @Test
+    @Transactional
+    public void deleteCategoria() throws Exception {
+
+        // Get the categoria
+        restCategoriaMockMvc.perform(delete("/api/categorias/{id}", cat.getId()))
+            .andExpect(status().isNotFound());
+        
+    }
+}
+
+

@@ -87,9 +87,10 @@ module.exports = JDLGenerator.extend({
         },
 
         parseJDL() {
-            this.log('The jdl is being parsed.');
+            this.log('The jdl is being parsedbbbbbbbbbbb.');
             try {
                 const jdlObject = jhiCore.convertToJDL(jhiCore.parseFromFiles(this.jdlFiles), this.prodDatabaseType, this.applicationType);
+                this.log('The jdl is being parsedaaaaaaaaaaaaaaaaaa.');
                 const entities = jhiCore.convertToJHipsterJSON({
                     jdlObject,
                     databaseType: this.prodDatabaseType,
