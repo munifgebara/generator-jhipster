@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private as: AutorizadorService, private router: Router) { }
 
   ngOnInit() {
-    this.newUser = { email: '', password: '' };
+    this.newUser = { email: 'admin', password: 'admin' };
   }
 
   onSubmit(form: NgForm) {

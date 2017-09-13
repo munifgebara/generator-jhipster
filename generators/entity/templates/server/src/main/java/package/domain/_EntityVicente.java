@@ -147,6 +147,7 @@ public class <%= entityClass %> extends BaseEntity {
     <%_ }
     }
 
+
     for (idx in relationships) {
         const otherEntityRelationshipName = relationships[idx].otherEntityRelationshipName;
         const otherEntityRelationshipNamePlural = relationships[idx].otherEntityRelationshipNamePlural;

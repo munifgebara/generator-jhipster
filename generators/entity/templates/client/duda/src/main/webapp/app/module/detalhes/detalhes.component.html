@@ -30,6 +30,23 @@
         <%_ 
 }
 _%>
+     <%_ for (idx in relationships) {
+        const relationshipType = relationships[idx].relationshipType;
+        const ownerSide = relationships[idx].ownerSide;
+        const otherEntityName = relationships[idx].otherEntityName;
+        const otherEntityNamePlural = relationships[idx].otherEntityNamePlural;
+        const otherEntityNameCapitalized = relationships[idx].otherEntityNameCapitalized;
+        const relationshipName = relationships[idx].relationshipName;
+        const relationshipNameHumanized = relationships[idx].relationshipNameHumanized;
+        const relationshipFieldName = relationships[idx].relationshipFieldName;
+        const relationshipFieldNamePlural = relationships[idx].relationshipFieldNamePlural;
+        const otherEntityField = relationships[idx].otherEntityField;
+        const otherEntityFieldCapitalized = relationships[idx].otherEntityFieldCapitalized;
+        const relationshipRequired = relationships[idx].relationshipRequired;
+        const translationKey = relationshipName; 
+        if (relationshipType === 'many-to-one' || relationshipType === 'one-to-one'){        _%>
+        <h3><%=otherEntityNamePlural %></h3>
+        <p-dropdown [options]="lista<%=otherEntityNamePlural %>" [(ngModel)]="selecionado.<%=relationshipFieldName %>"></p-dropdown>
 
-
+<%_ }} _%>
 </p-panel>
