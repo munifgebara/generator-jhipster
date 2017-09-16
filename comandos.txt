@@ -1,5 +1,8 @@
 jhipster --skip-install
 
+find -printf "%TY-%Tm-%Td %TT %p\n" | sort -n
+
+rename 's/^/_/' *.ts
 
 
  git reset --hard 
@@ -185,3 +188,108 @@ public class ReferenceResourceIntTest {
 }
 
 
+
+
+   
+    private static final Logger log = LoggerFactory.getLogger(SeedEmpleados.class);
+    
+    @Autowired
+    private PaisRepository paisRepository;
+    
+    @Autowired
+    private EstadoRepository estadoRepository;
+
+    @Autowired
+    private CidadeRepository cidadeRepository;
+    
+    @Autowired
+    private EstadoCivilRepository estadoCivilRepository;
+    
+    @Autowired
+    private NacionalidadeRepository nacionalidadeRepository;
+    
+    @Autowired
+    private SexoRepository sexoRepository;
+    
+    @Autowired
+    private TipoObservacaoRepository tipoObservacaoRepository;
+    
+    @Autowired
+    private TipoParentescoRepository tipoParentescoRepository;
+
+    @Transactional
+    public void seed(){
+        log.info("Starting seed");
+        
+        VicThreadScope.gi.set("SEED");
+        VicThreadScope.ui.set("SEED");
+        VicThreadScope.ip.set("127.0.0.1");
+        VicThreadScope.defaultRights.set(RightsHelper.OTHER_READ);
+        if (paisRepository.count()>0){
+            return;
+        }
+        log.info("Inserting data");
+        
+        Pais brasil=new Pais("Brasil");
+        Pais argentina=new Pais("Argentina");
+        Pais paraguai=new Pais("Paraguai");
+        
+        paisRepository.saveAndFlush(brasil);
+        paisRepository.saveAndFlush(argentina);
+        paisRepository.saveAndFlush(paraguai);
+        
+        Estado e0=new Estado().nome("Santa Catarina").pais(brasil);
+        Estado e1=new Estado().nome("Paraná").pais(brasil);
+        Estado e2=new Estado().nome("São Paulo").pais(brasil);
+        
+        Estado e3=new Estado().nome("Amambay").pais(paraguai);
+        Estado e4=new Estado().nome("Distrito").pais(paraguai);
+        Estado e5=new Estado().nome("Boquerón").pais(paraguai);
+        
+        Estado e6=new Estado().nome("Central").pais(argentina);
+        Estado e7=new Estado().nome("Novo Cuyo").pais(argentina);
+        Estado e8=new Estado().nome("Patagônia").pais(argentina);
+        
+        estadoRepository.saveAndFlush(e0);
+        estadoRepository.saveAndFlush(e1);
+        estadoRepository.saveAndFlush(e2);
+        estadoRepository.saveAndFlush(e3);
+        estadoRepository.saveAndFlush(e4);
+        estadoRepository.saveAndFlush(e5);
+        estadoRepository.saveAndFlush(e6);
+        estadoRepository.saveAndFlush(e7);
+        estadoRepository.saveAndFlush(e8);
+        
+        cidadeRepository.saveAndFlush(new Cidade().estado(e0).nome("FLorianópilis"));
+        cidadeRepository.saveAndFlush(new Cidade().estado(e1).nome("Maringá"));
+        cidadeRepository.saveAndFlush(new Cidade().estado(e2).nome("Rio Preto"));
+        cidadeRepository.saveAndFlush(new Cidade().estado(e3).nome("Cidade A"));
+        cidadeRepository.saveAndFlush(new Cidade().estado(e4).nome("Cidade B"));
+        cidadeRepository.saveAndFlush(new Cidade().estado(e5).nome("Cidade C"));
+        cidadeRepository.saveAndFlush(new Cidade().estado(e6).nome("Cidade D"));
+        cidadeRepository.saveAndFlush(new Cidade().estado(e7).nome("Cidade E"));
+        
+        nacionalidadeRepository.saveAndFlush(new Nacionalidade().descricao("Brasileira"));
+        nacionalidadeRepository.saveAndFlush(new Nacionalidade().descricao("Argentina"));
+        nacionalidadeRepository.saveAndFlush(new Nacionalidade().descricao("Paraguaia"));
+        
+        estadoCivilRepository.saveAndFlush(new EstadoCivil().descricao("Casado"));
+        estadoCivilRepository.saveAndFlush(new EstadoCivil().descricao("Solteiro"));
+        
+        sexoRepository.saveAndFlush(new Sexo().descricao("Masculino"));
+        sexoRepository.saveAndFlush(new Sexo().descricao("Feminino"));
+        
+        tipoObservacaoRepository.saveAndFlush(new TipoObservacao().descricao("Falta de documentos"));
+        tipoObservacaoRepository.saveAndFlush(new TipoObservacao().descricao("Doença"));
+        tipoObservacaoRepository.saveAndFlush(new TipoObservacao().descricao("Outros"));
+        
+        tipoParentescoRepository.saveAndFlush(new TipoParentesco("Filho"));
+        tipoParentescoRepository.saveAndFlush(new TipoParentesco("Pai"));
+        
+        
+        
+        
+        
+        
+        
+    }

@@ -17,6 +17,9 @@
  limitations under the License.
 -%>
 package <%=packageName%>.config;
+
+import br.com.munif.framework.vicente.application.VicRepositoryImpl;
+
 <%_ if (databaseType === 'sql') { _%>
 
 import io.github.jhipster.config.JHipsterConstants;
@@ -75,7 +78,7 @@ import java.util.List;
 <%_ } _%>
 
 @Configuration<% if (databaseType === 'sql') { %>
-@EnableJpaRepositories("<%=packageName%>.repository")
+@EnableJpaRepositories(basePackages ="<%=packageName%>.repository",repositoryBaseClass = VicRepositoryImpl.class)
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement<% } %><% if (searchEngine === 'elasticsearch') { %>
 @EnableElasticsearchRepositories("<%=packageName%>.repository.search")<% } %><% if (databaseType === 'mongodb') { %>

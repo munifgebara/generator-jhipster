@@ -18,6 +18,7 @@
 -%>
 package <%=packageName%>.security.jwt;
 
+import br.com.munif.framework.vicente.core.VicThreadScope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -50,6 +51,12 @@ public class JWTFilter extends GenericFilterBean {
         if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
             Authentication authentication = this.tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            String groups = authentication.getAuthorities().toString();
+            if (groups!=null){
+                groups=groups.substring(1,groups.length()-1);
+            }
+            VicThreadScope.gi.set(groups);
+            VicThreadScope.ui.set(authentication.getName());
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

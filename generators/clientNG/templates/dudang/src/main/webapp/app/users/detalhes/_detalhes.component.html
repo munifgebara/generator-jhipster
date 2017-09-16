@@ -1,0 +1,20 @@
+{{selecionado|json}}
+<p-panel>
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title">User</span>
+            <p-splitButton [style]="{'float':'right'}" label="Salvar" (onClick)="salvar()" [model]="items"></p-splitButton>
+        </div>
+    </p-header>
+    <h3>Login</h3>
+    <input id="login" type="text" size="30" pInputText [(ngModel)]="selecionado.login">
+    <h3>email</h3>
+    <input id="email" type="text" size="30" pInputText [(ngModel)]="selecionado.email">
+
+    <h3>Profiles</h3>
+    <select class="form-control" multiple name="authority" [(ngModel)]="selecionado.authorities">
+                <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
+            </select>
+
+</p-panel>
+

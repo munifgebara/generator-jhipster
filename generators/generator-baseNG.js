@@ -185,13 +185,13 @@ module.exports = class extends PrivateBase {
                     ]
                 }, this);
             } else {
-                entityMenuPath = `${CLIENT_MAIN_SRC_DIR}app/app.component.html`;
+                entityMenuPath = `${CLIENT_MAIN_SRC_DIR}app/app.component.ts`;
                 jhipsterUtils.rewriteFile({
                     file: entityMenuPath,
                     needle: 'jhipster-needle-add-entity-to-menu',
                     splicable: [
                         this.stripMargin(
-                            `|<button pButton type="button" label="${_.startCase(routerName)}" icon="fa-plus"  [routerLink]="['./${routerName}']"></button>`
+                            `|{ label: '${_.startCase(routerName)}', icon: 'fa-download', routerLink: ['./${routerName}'] },`
                         )
                     ]
                 }, this);

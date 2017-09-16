@@ -52,7 +52,7 @@
     <properties>
         <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
         <assertj.version>3.6.2</assertj.version>
-        <vicente.version>0.2-SNAPSHOT</vicente.version>
+        <vicente.version>0.3.0-SNAPSHOT</vicente.version>
         <awaitility.version>2.0.0</awaitility.version>
         <%_ if (applicationType === 'gateway') { _%>
         <bucket4j.version>2.0.1</bucket4j.version>

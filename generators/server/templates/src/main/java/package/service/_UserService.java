@@ -242,9 +242,9 @@ public class UserService {
         <%_ if (databaseType === 'cassandra') { _%>
         user.setAuthorities(userDTO.getAuthorities());
         <%_ } _%>
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+        String encryptedPassword = passwordEncoder.encode("1234");
         user.setPassword(encryptedPassword);
-        user.setResetKey(RandomUtil.generateResetKey());
+        //user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
         user.setActivated(true);
         userRepository.save(user);<% if (searchEngine === 'elasticsearch') { %>

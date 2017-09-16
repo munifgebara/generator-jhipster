@@ -64,7 +64,13 @@ const files = {
                 'src/main/webapp/app/comum/_dashboard.component.html',
                 'src/main/webapp/app/comum/_dashboard.component.ts',
                 'src/main/webapp/app/comum/_pietra.guard.ts',
-                'src/main/webapp/app/comum/_autorizador.service.ts'
+                'src/main/webapp/app/comum/_autorizador.service.ts',
+
+                'src/main/webapp/app/users/_routing.module.ts','src/main/webapp/app/users/_service.ts','src/main/webapp/app/users/_users.module.ts',
+                'src/main/webapp/app/users/crud/_crud.component.css','src/main/webapp/app/users/crud/_crud.component.html','src/main/webapp/app/users/crud/_crud.component.ts',
+                'src/main/webapp/app/users/detalhes/_detalhes.component.css','src/main/webapp/app/users/detalhes/_detalhes.component.html','src/main/webapp/app/users/detalhes/_detalhes.component.ts',
+                'src/main/webapp/app/users/lista/_lista.component.html','src/main/webapp/app/users/lista/_lista.component.ts'
+
             ]
         }
     ],

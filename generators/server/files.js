@@ -332,6 +332,8 @@ function writeFiles() {
             // Spring Boot main
             this.template(`${SERVER_MAIN_SRC_DIR}package/_Application.java`, `${javaDir}/${this.mainClass}.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/_ApplicationWebXml.java`, `${javaDir}/ApplicationWebXml.java`);
+            this.template(`${SERVER_MAIN_SRC_DIR}package/seed/_Seed.java`, `${javaDir}/seed/Seed.java`);
+            this.template(`${SERVER_MAIN_SRC_DIR}package/seed/_SeedOne.java`, `${javaDir}/seed/SeedOne.java`);
         },
 
         writeServerJavaConfigFiles() {

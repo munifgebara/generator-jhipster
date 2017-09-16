@@ -12,7 +12,8 @@ import { AutorizadorService} from './comum/autorizador.service';
 import { LoginComponent } from './comum/login.component';
 import { DashboardComponent } from './comum/dashboard.component';
 import { PietraGuard } from './comum/pietra.guard';
-
+import { UserModule } from './users/users.module';
+import {MenuModule,MenuItem} from 'primeng/primeng';
 
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
@@ -28,7 +29,8 @@ import { PietraGuard } from './comum/pietra.guard';
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    AccordionModule, GrowlModule, DataListModule, ToolbarModule, ButtonModule, SplitButtonModule, PanelModule,
+    AccordionModule, GrowlModule, DataListModule, ToolbarModule, ButtonModule, SplitButtonModule, PanelModule, MenuModule,
+    UserModule,
 
    /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
 

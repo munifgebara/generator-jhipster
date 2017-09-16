@@ -1,0 +1,151 @@
+entity Cidade{
+    nome String
+}
+
+entity Contato{
+    descricao String
+    telefone String
+    email String
+    observacao String
+}
+
+entity Documento{
+    descricao String
+}
+
+entity Endereco{
+    descricao String
+    zipCode String
+    premisseType String
+    premisse String
+    number String
+    information String
+    neighbourhood String
+    localization String
+    state String
+    country String
+    latitude Double
+    longitude Double
+    formalCode String
+    stateCode String
+}
+
+entity EstadoCivil{
+    descricao String
+}
+
+entity Estado{
+    nome String
+}
+
+entity Nacionalidade{
+    descricao String
+}
+
+entity Observacao{
+    texto String
+}
+
+entity Pais{
+    nome String
+}
+
+entity Parentesco{
+}
+
+entity Pessoa{
+    nome String
+    sobreNome String
+    matricula String
+    dataNascimento ZonedDateTime
+    ativo Boolean
+    lugarNascimento String
+}
+
+entity Sexo{
+    descricao String
+}
+
+entity TipoObservacao{
+    descricao String
+}
+
+entity TipoParentesco{
+    descricao String
+}
+
+relationship ManyToOne {
+  Cidade{estado(nome)}   to Estado
+}
+
+
+relationship ManyToOne {
+  Contato{endereco(descricao)}   to Endereco
+}
+
+
+relationship ManyToOne {
+  Estado{pais(nome)}   to Pais
+}
+
+
+relationship ManyToOne {
+  Observacao{tipoObservacao(descricao)}   to TipoObservacao
+}
+
+
+relationship ManyToOne {
+  Parentesco{familiar(nome)}   to Pessoa
+}
+
+
+relationship ManyToOne {
+  Parentesco{tipoParentesco(descricao)}   to TipoParentesco
+}
+
+
+relationship ManyToOne {
+  Pessoa{estadoCivil(descricao)}   to EstadoCivil
+}
+
+
+relationship ManyToOne {
+  Pessoa{nacionalidade(descricao)}   to Nacionalidade
+}
+
+
+relationship ManyToOne {
+  Pessoa{sexo(descricao)}   to Sexo
+}
+
+
+relationship ManyToOne {
+  Pessoa{cidade(nome)}   to Cidade
+}
+
+
+relationship OneToMany {
+  Pessoa{enderecos}   to Endereco
+}
+
+
+relationship OneToMany {
+  Pessoa{documentos} to Documento
+}
+
+
+relationship OneToMany {
+  Pessoa{observacoes} to Observacao
+}
+
+
+relationship OneToMany {
+  Pessoa{contatos} to Contato
+}
+
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
