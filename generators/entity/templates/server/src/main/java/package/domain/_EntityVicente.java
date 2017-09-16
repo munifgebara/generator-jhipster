@@ -226,12 +226,13 @@ public class <%= entityClass %> extends BaseEntity {
 
     }
 
+<%_ if (fields.length>0){ _%>
     public <%= entityClass %>(<%_ for (idx in fields) {const fieldType = fields[idx].fieldType;const fieldName = fields[idx].fieldName; _%> <%= fieldType %> <%= fieldName %><%_ if (idx < fields.length-1) { _%>, <%_ } _%><%_ } _%>){
         <%_ for (idx in fields) {const fieldType = fields[idx].fieldType;const fieldName = fields[idx].fieldName; _%>
         this.<%=fieldName %>=<%= fieldName %>;
         <%_ } _%>
     }
-
+<%_ } _%>
 
 
 

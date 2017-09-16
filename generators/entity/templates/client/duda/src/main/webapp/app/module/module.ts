@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
 import { AutoCompleteModule } from 'primeng/primeng';
 import { DropdownModule } from 'primeng/primeng';
+import { CalendarModule } from 'primeng/primeng';
 
 import { <%= entityAngularName %>Service } from './service';
 import { RoutingModule } from './routing.module';
@@ -22,7 +23,7 @@ import { DetalhesComponent } from './detalhes/detalhes.component';
     CommonModule, FormsModule, PanelModule,
     RoutingModule,
     BrowserAnimationsModule,
-    AccordionModule, GrowlModule, DataListModule, ToolbarModule, ButtonModule, SplitButtonModule,DropdownModule,
+    AccordionModule, GrowlModule, DataListModule, ToolbarModule, ButtonModule, SplitButtonModule,DropdownModule,CalendarModule,
     DataTableModule, SharedModule, InputTextModule, AutoCompleteModule
 
   ],

@@ -26,7 +26,12 @@
             }
         _%>
         <h3><%= fieldNameCapitalized %></h3>
+        <%_if (['Instant', 'ZonedDateTime'].includes(fieldType)){_%>
+        <p-calendar id="<%= fieldName %>" [(ngModel)]="selecionado.<%= fieldName %>" [showTime]="true"></p-calendar>
+        <%_}
+        else{_%>
         <input id="<%= fieldName %>" type="<%= fieldInputType %>" size="30" pInputText [(ngModel)]="selecionado.<%= fieldName %>">
+        <%_}_%>
         <%_ 
 }
 _%>

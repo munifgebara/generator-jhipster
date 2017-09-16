@@ -790,6 +790,7 @@ module.exports = EntityGenerator.extend({
                 this.rebuildClient();
             }
         }
-        this.log(chalk.bold.green('Entity generation completed'));
+
+        this.log(chalk.bold.green('Entity generation completed'+this.entityAngularName));
     }
 });

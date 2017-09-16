@@ -1,33 +1,32 @@
 entity Cidade{
     nome String
+    populacao Integer
 }
+
+entity TipoContato{
+    descricao String
+}
+
 
 entity Contato{
     descricao String
-    telefone String
-    email String
-    observacao String
+    valor String
 }
 
-entity Documento{
+entity TipoDocumento{
     descricao String
+}
+
+
+entity Documento{
+    valor String
 }
 
 entity Endereco{
     descricao String
-    zipCode String
-    premisseType String
-    premisse String
-    number String
-    information String
-    neighbourhood String
-    localization String
-    state String
-    country String
-    latitude Double
-    longitude Double
-    formalCode String
-    stateCode String
+ domicilio String
+ direccion String
+
 }
 
 entity EstadoCivil{
@@ -43,6 +42,7 @@ entity Nacionalidade{
 }
 
 entity Observacao{
+    momento ZonedDateTime
     texto String
 }
 
@@ -56,9 +56,9 @@ entity Parentesco{
 entity Pessoa{
     nome String
     sobreNome String
+    apelido String
     matricula String
     dataNascimento ZonedDateTime
-    ativo Boolean
     lugarNascimento String
 }
 
@@ -80,11 +80,6 @@ relationship ManyToOne {
 
 
 relationship ManyToOne {
-  Contato{endereco(descricao)}   to Endereco
-}
-
-
-relationship ManyToOne {
   Estado{pais(nome)}   to Pais
 }
 
@@ -93,9 +88,16 @@ relationship ManyToOne {
   Observacao{tipoObservacao(descricao)}   to TipoObservacao
 }
 
+relationship ManyToOne {
+  Parentesco{familiar(nome)} to Pessoa
+}
+
+relationship OneToMany {
+  Pessoa{parentescos} to Parentesco{pessoa(nome)}
+}
 
 relationship ManyToOne {
-  Parentesco{familiar(nome)}   to Pessoa
+  Contato{tipo(descricao)}   to TipoContato
 }
 
 
@@ -116,6 +118,10 @@ relationship ManyToOne {
 
 relationship ManyToOne {
   Pessoa{sexo(descricao)}   to Sexo
+}
+
+relationship ManyToOne {
+  Documento{tipo(descricao)}   to TipoDocumento
 }
 
 
