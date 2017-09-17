@@ -60,6 +60,7 @@ entity Pessoa{
     matricula String
     dataNascimento ZonedDateTime
     lugarNascimento String
+    foto ImageBlob
 }
 
 entity Sexo{
