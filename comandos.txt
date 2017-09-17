@@ -1,3 +1,204 @@
+    }
+
+     @PostMapping("/arquivo")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+        try {
+            System.out.println("----->"+file);
+            FileOutputStream fileOutputStream = new FileOutputStream("/home/munif/arquivo.png");
+            InputStream inputStream = file.getInputStream();
+            IOUtils.copy(inputStream, fileOutputStream);
+            inputStream.close();
+            fileOutputStream.close();
+            return "OK";
+        } catch (FileNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PessoaResource.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(PessoaResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "problemas";
+    }
+
+
+
+ <div class="form-group">
+        <label class="form-control-label" for="field_foto">Foto</label>
+        <div>
+            <img [src]="'data:' + selecionado.fotoContentType + ';base64,' + selecionado.foto" style="max-height: 100px;" *ngIf="selecionado.foto"
+                alt="selecionado image" />
+            <div *ngIf="selecionado.foto" class="form-text text-danger clearfix">
+                <span class="pull-left">{{selecionado.fotoContentType}}, {{byteSize(selecionado.foto)}}</span>
+                <button type="button" (click)="clearInputImage('foto', 'fotoContentType', 'fileImage')" class="btn btn-default btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+            </div>
+            <input type="file" id="file_foto" (change)="setFileData($event, selecionado, 'foto', true)" accept="image/*" />
+        </div>
+        <input type="hidden" class="form-control" name="foto" id="field_foto" [(ngModel)]="selecionado.foto" />
+        <input type="hidden" class="form-control" name="fotoContentType" id="field_fotoContentType" [(ngModel)]="selecionado.fotoContentType"
+        />
+    </div>
+    <h3 class="first">Advanced</h3>
+    <p-fileUpload name="file" url="http://localhost:8080/api/pessoas/arquivo" (onBeforeSend)="onBeforeSend($event)"  (onUpload)="onUpload($event)" multiple="multiple" accept="image/*" maxFileSize="1000000">
+        <ng-template pTemplate type="content">
+            <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+            </ul>
+        </ng-template>
+    </p-fileUpload>
+
+
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
+import { PessoaService } from '../service';
+import { SuperDetalhes } from '../../comum/superdetalhes.component';
+import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+
+
+
+
+//EstadoCivil estadoCivil
+//Nacionalidade nacionalidade
+//Sexo sexo
+//Cidade cidade
+
+
+import { EstadoCivilService } from '../../estado-civil/service';
+import { NacionalidadeService } from '../../nacionalidade/service';
+import { SexoService } from '../../sexo/service';
+import { CidadeService } from '../../cidade/service';
+import { Message } from "primeng/primeng";
+
+
+
+@Component({
+  selector: 'app-detalhes',
+  templateUrl: './detalhes.component.html',
+  styleUrls: ['./detalhes.component.css']
+})
+
+export class DetalhesComponent extends SuperDetalhes implements OnInit {
+
+  isSaving: boolean;
+
+  constructor(service: PessoaService,
+    router: Router, route: ActivatedRoute,
+    private estadoCivilService: EstadoCivilService, private nacionalidadeService: NacionalidadeService,
+    private sexoService: SexoService, private cidadeService: CidadeService,
+    private dataUtils: JhiDataUtils,
+    private elementRef: ElementRef
+
+  ) {
+    super(service, router, route);
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.atualizaEstadoCivil();
+    this.atualizaNacionalidade();
+    this.atualizaSexo();
+    this.atualizaCidade();
+    this.isSaving = false;
+  }
+
+   msgs: Message[];
+    
+    uploadedFiles: any[] = [];
+    
+   onBeforeSend(event) {
+       console.log("----->",event);
+    event.xhr.setRequestHeader("Authorization", "Bearer " + this.service.autorizador.getToken());
+  }
+
+    onUpload(event) {
+        for(let file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+    
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'File Uploaded', detail: ''});
+    }
+
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+
+  setFileData(event, entity, field, isImage) {
+    this.dataUtils.setFileData(event, entity, field, isImage);
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string) {
+    this.dataUtils.clearInputImage(this.selecionado, this.elementRef, field, fieldContentType, idInput);
+  }
+
+  listaestadoCivils = [];
+
+  atualizaEstadoCivil() {
+    this.estadoCivilService.getAll().then(response => { this.listaestadoCivils = this.converteEstadoCivil(response.values); });
+  }
+
+  converteEstadoCivil(lista: any[]) {
+    let retorno = [];
+    retorno.push({ label: 'Selecione', value: null });
+    for (let obj of lista) {
+      retorno.push({ label: obj.descricao, value: obj });
+    }
+    return retorno;
+  }
+
+  listanacionalidades = [];
+
+  atualizaNacionalidade() {
+    this.nacionalidadeService.getAll().then(response => { this.listanacionalidades = this.converteNacionalidade(response.values); });
+  }
+
+  converteNacionalidade(lista: any[]) {
+    let retorno = [];
+    retorno.push({ label: 'Selecione', value: null });
+    for (let obj of lista) {
+      retorno.push({ label: obj.descricao, value: obj });
+    }
+    return retorno;
+  }
+
+  listasexos = [];
+
+  atualizaSexo() {
+    this.sexoService.getAll().then(response => { this.listasexos = this.converteSexo(response.values); });
+  }
+
+  converteSexo(lista: any[]) {
+    let retorno = [];
+    retorno.push({ label: 'Selecione', value: null });
+    for (let obj of lista) {
+      retorno.push({ label: obj.descricao, value: obj });
+    }
+    return retorno;
+  }
+
+  listacidades = [];
+
+  atualizaCidade() {
+    this.cidadeService.getAll().then(response => { this.listacidades = this.converteCidade(response.values); });
+  }
+
+  converteCidade(lista: any[]) {
+    let retorno = [];
+    retorno.push({ label: 'Selecione', value: null });
+    for (let obj of lista) {
+      retorno.push({ label: obj.nome, value: obj });
+    }
+    return retorno;
+  }
+
+}
+
+
+
 jhipster --skip-install
 
 find -printf "%TY-%Tm-%Td %TT %p\n" | sort -n
