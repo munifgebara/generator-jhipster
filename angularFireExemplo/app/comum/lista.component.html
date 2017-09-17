@@ -1,0 +1,23 @@
+<p-dataTable [value]="lista">
+    <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
+
+    <p-column field="ui" header="Proprietário" [style]="{'width':'140px'}"  ></p-column>
+    <p-column field="gi" header="Grupo" [style]="{'width':'140px'}"></p-column>
+    <p-column field="stringRights" header="Direitos" [style]="{'width':'140px'}"></p-column>
+
+    <p-column >
+        <ng-template pTemplate="header">
+            <button type="button" pButton icon="fa-refresh" (click)="atualiza()"></button>
+            <button type="button" pButton icon="fa-plus" (click)="edita('new')"></button>
+        </ng-template>
+       <ng-template let-obj="rowData" pTemplate="body">
+         <div class="col-button">
+
+        <button type="button" pButton (click)="edita(obj.id)" icon="fa-search"></button>
+        <button type="button" pButton (click)="remove(obj.id)" icon="fa-remove"></button>
+        </div>
+    </ng-template>
+    </p-column>
+</p-dataTable>
+
+<p-growl [(value)]="msgs" sticky="sticky"></p-growl>
